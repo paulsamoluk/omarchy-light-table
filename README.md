@@ -30,13 +30,14 @@ cannot be decoded still gets a tile, showing its extension instead of a preview.
 ## Install
 
 ```bash
-omarchy plugin add https://github.com/<you>/omarchy-light-table.git --enable --yes
+omarchy plugin add https://github.com/paulsamoluk/omarchy-light-table.git --enable --yes
 ```
 
 Or from a local checkout:
 
 ```bash
-cp -r omarchy-light-table ~/.config/omarchy/plugins/psamoluk.light-table
+git clone https://github.com/paulsamoluk/omarchy-light-table.git ~/Dev/LightTable
+cp -r ~/Dev/LightTable ~/.config/omarchy/plugins/psamoluk.light-table
 omarchy plugin enable psamoluk.light-table
 omarchy restart shell
 ```
