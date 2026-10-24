@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "psamoluk.light-table",
+  "name": "Light Table",
+  "version": "1.0.0",
+  "author": "Paul Samoluk",
+  "license": "MIT",
+  "description": "Watch folders of photos from the bar: the newest images appear as thumbnails, click one to open it in your default image viewer.",
+  "kinds": ["bar-widget"],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Light Table",
+    "description": "Thumbnails of the newest photos in folders you choose (JPEG, PNG, WebP, TIFF, HEIC and RAW). Click a thumbnail to open it in your default image viewer.",
+    "category": "Utilities",
+    "allowMultiple": false,
+    "defaultSection": "right"
+  }
+}
