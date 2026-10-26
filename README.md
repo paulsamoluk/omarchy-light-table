@@ -80,6 +80,11 @@ services, no post-install hooks, nothing runs outside the user session:
 - Previews: `~/.cache/psamoluk.light-table/*.jpg`, keyed by path + size + mtime,
   640×640 centre-cropped, so rescanning an unchanged folder decodes no images.
   Roughly 40–80 KB each; 600 photos ≈ 40 MB.
+- **The cache is private to your account.** Previews are 640px copies of your
+  photos and the index records their absolute paths, so the scan sets
+  `umask 077` and keeps the directory `700`, previews and `index.tsv` `600` —
+  another local account cannot read them even when the originals are 600/700.
+  A cache written by 1.0.0 is tightened in place on the next scan.
 - A scan never blocks on image decoding: the list comes back in milliseconds and
   a background pass builds the missing previews (≈1–2 s per photo, so a few
   hundred new files take minutes), refreshing the panel every 15 s as they land.

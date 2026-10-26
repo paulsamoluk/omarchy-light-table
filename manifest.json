@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "psamoluk.light-table",
   "name": "Light Table",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Paul Samoluk",
   "license": "MIT",
   "description": "Watch folders of photos from the bar: the newest images appear as thumbnails, click one to open it in your default image viewer.",

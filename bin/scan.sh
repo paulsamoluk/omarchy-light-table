@@ -19,6 +19,12 @@
 
 set -uo pipefail
 
+# Everything this script writes is derived from the user's photo library: the
+# previews are 640px copies and index.tsv holds the absolute path of every
+# image. Both must stay owner-only, or another local account can read the
+# library by proxy even when the originals themselves are 600/700.
+umask 077
+
 mode=${1:-list}
 cache=${2:-}
 limit=${3:-600}
@@ -28,6 +34,19 @@ shift 5 || exit 0
 
 [[ -n $cache ]] || exit 0
 mkdir -p "$cache" || exit 0
+# mkdir -p honours the inherited umask for a fresh directory but leaves an
+# existing one alone, so fix the mode explicitly: a cache created by an older
+# build is 755 and stays 755 for the life of the install otherwise.
+chmod 700 "$cache" 2>/dev/null
+
+# Heal caches written before this fix. Previews were 644 in a 755 directory and
+# index.tsv was 644 with absolute paths in it. Tighten the existing tree once,
+# then leave a marker so later scans do not repeat the walk.
+if [[ ! -e $cache/.private-perms ]]; then
+  find "$cache" -maxdepth 1 \( -name '*.jpg' -o -name 'index.tsv*' \) \
+    -exec chmod 600 {} + 2>/dev/null
+  : > "$cache/.private-perms"
+fi
 
 exts=(jpg jpeg png gif bmp webp tif tiff heic heif avif cr2 cr3 nef arw dng raf orf rw2 pef srw nrw 3fr iiq mos)
 match=()
